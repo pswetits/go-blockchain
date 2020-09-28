@@ -7,16 +7,19 @@ import (
 )
 
 func main() {
-	fmt.Printf("Difficulty setting: %d\n", blockchain.Difficulty)
-	fmt.Printf("Adding blocks...\n\n")
-
 	chain := blockchain.InitBlockChain()
+
+	fmt.Printf("\nAdding blocks (Difficulty=%d)...\n", blockchain.Difficulty)
 	chain.AddBlock("First block after genesis")
 	chain.AddBlock("Second block after genesis")
 	chain.AddBlock("Third block after genesis")
 
 	fmt.Printf("\n\nFull Blockchain:\n\n")
-	for _, block := range chain.Blocks {
+
+	iter := chain.Iterator()
+
+	for {
+		block := iter.Next()
 		fmt.Printf("Previous Hash: %x\n", block.PrevHash)
 		fmt.Printf("Data in Block: %s\n", block.Data)
 		fmt.Printf("Hash: %x\n", block.Hash)
@@ -24,5 +27,9 @@ func main() {
 		pow := blockchain.NewProof(block)
 		fmt.Printf("Valid PoW? %s\n", strconv.FormatBool(pow.Validate()))
 		fmt.Println()
+
+		if len(block.PrevHash) == 0 {
+			break
+		}
 	}
 }
