@@ -5,6 +5,11 @@
 *.so
 *.dylib
 
+go-blockchain
+
+# db dir
+db/*
+
 # Test binary, built with `go test -c`
 *.test
 
