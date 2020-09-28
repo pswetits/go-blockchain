@@ -28,10 +28,10 @@ func (chain *BlockChain) AddBlock(data string) {
 	chain.Blocks = append(chain.Blocks, newBlock)
 }
 
-func Genesis() *Block {
+func genesis() *Block {
 	return CreateBlock("Genesis", []byte{})
 }
 
 func InitBlockChain() *BlockChain {
-	return &BlockChain{[]*Block{Genesis()}}
+	return &BlockChain{[]*Block{genesis()}}
 }
